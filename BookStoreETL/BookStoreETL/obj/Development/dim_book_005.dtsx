@@ -1,0 +1,2289 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/24/2025 10:46:12 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-EDN2DPO"
+  DTS:CreatorName="DESKTOP-EDN2DPO\Sigma"
+  DTS:DTSID="{BC4CF7AB-27A6-4996-B6EC-C4CC01B3C72B}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5685.2"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="15"
+  DTS:VersionGUID="{4764C03A-7FC9-4D7A-886D-DB8FFCDA7DC2}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DTF_dim_book"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{735A4969-9B41-4E74-AA79-0E43CD01B5CB}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DTF_dim_book"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DTF_dim_book\Conditional Split"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Conditional Split"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DTF_dim_book\Conditional Split.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DTF_dim_book\Conditional Split.Inputs[Conditional Split Input].Columns[title]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="400"
+                      cachedName="title"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[title]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\Conditional Split.Inputs[Conditional Split Input].Columns[publisher_name]"
+                      cachedDataType="wstr"
+                      cachedLength="1000"
+                      cachedName="publisher_name"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[publisher_name]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\Conditional Split.Inputs[Conditional Split Input].Columns[lkp_publisher_name]"
+                      cachedDataType="wstr"
+                      cachedLength="1000"
+                      cachedName="lkp_publisher_name"
+                      lineageId="Package\DTF_dim_book\Lookup.Outputs[Lookup Match Output].Columns[lkp_publisher_name]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\Conditional Split.Inputs[Conditional Split Input].Columns[lkp_title]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="400"
+                      cachedName="lkp_title"
+                      lineageId="Package\DTF_dim_book\Lookup.Outputs[Lookup Match Output].Columns[lkp_title]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DTF_dim_book\Conditional Split.Outputs[SCD1]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="SCD1"
+                  synchronousInputId="Package\DTF_dim_book\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[title]} != #{Package\DTF_dim_book\Lookup.Outputs[Lookup Match Output].Columns[lkp_title]}</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">title != lkp_title</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DTF_dim_book\Conditional Split.Outputs[SCD2]"
+                  description="Output 2 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="SCD2"
+                  synchronousInputId="Package\DTF_dim_book\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[publisher_name]} != #{Package\DTF_dim_book\Lookup.Outputs[Lookup Match Output].Columns[lkp_publisher_name]}</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">publisher_name != lkp_publisher_name</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">1</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DTF_dim_book\Conditional Split.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\DTF_dim_book\Conditional Split.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DTF_dim_book\Conditional Split.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\DTF_dim_book\Conditional Split.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DTF_dim_book\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DTF_dim_book\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DTF_dim_book\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DTF_dim_book\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\Derived Column.Outputs[Derived Column Output].Columns[start_date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DTF_dim_book\Derived Column.Outputs[Derived Column Output].Columns[start_date]"
+                      name="start_date"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\Derived Column.Outputs[Derived Column Output].Columns[end_date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DTF_dim_book\Derived Column.Outputs[Derived Column Output].Columns[end_date]"
+                      name="end_date"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">NULL(DT_DBTIMESTAMP)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">NULL(DT_DBTIMESTAMP)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\Derived Column.Outputs[Derived Column Output].Columns[is_current]"
+                      dataType="i1"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DTF_dim_book\Derived Column.Outputs[Derived Column Output].Columns[is_current]"
+                      name="is_current"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_I1)1</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_I1)1</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DTF_dim_book\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DTF_dim_book\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DTF_dim_book\Derived Column 1"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column 1"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DTF_dim_book\Derived Column 1.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DTF_dim_book\Derived Column 1.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DTF_dim_book\Derived Column 1.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\Derived Column 1.Outputs[Derived Column Output].Columns[start_date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DTF_dim_book\Derived Column 1.Outputs[Derived Column Output].Columns[start_date]"
+                      name="start_date"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\Derived Column 1.Outputs[Derived Column Output].Columns[end_date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DTF_dim_book\Derived Column 1.Outputs[Derived Column Output].Columns[end_date]"
+                      name="end_date"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">NULL(DT_DBTIMESTAMP)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">NULL(DT_DBTIMESTAMP)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\Derived Column 1.Outputs[Derived Column Output].Columns[is_current]"
+                      dataType="i1"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DTF_dim_book\Derived Column 1.Outputs[Derived Column Output].Columns[is_current]"
+                      name="is_current"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_I1)1</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_I1)1</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DTF_dim_book\Derived Column 1.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DTF_dim_book\Derived Column 1.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\Derived Column 1.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\Derived Column 1.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\Derived Column 1.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\Derived Column 1.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DTF_dim_book\insert destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="insert destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[dim_book]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DTF_dim_book\insert destination.Connections[OleDbConnection]"
+                  connectionManagerID="{128E3F09-F324-43E6-97DE-6C9187C0B9CE}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[BookStoreDWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].Columns[title]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="400"
+                      cachedName="title"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[title]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[title]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].Columns[isbn13]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="13"
+                      cachedName="isbn13"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[isbn13]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[isbn13]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].Columns[num_pages]"
+                      cachedDataType="i4"
+                      cachedName="num_pages"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[num_pages]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[num_pages]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].Columns[publication_date]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="publication_date"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[publication_date]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[publication_date]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].Columns[language_code]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="8"
+                      cachedName="language_code"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[language_code]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[language_code]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].Columns[language_name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="language_name"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[language_name]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[language_name]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].Columns[publisher_name]"
+                      cachedDataType="wstr"
+                      cachedLength="1000"
+                      cachedName="publisher_name"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[publisher_name]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[publisher_name]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].Columns[ssc]"
+                      cachedDataType="ui1"
+                      cachedName="ssc"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[ssc]"
+                      lineageId="Package\DTF_dim_book\ssc.Outputs[Derived Column Output].Columns[ssc]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].Columns[start_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="start_date"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[start_date]"
+                      lineageId="Package\DTF_dim_book\Derived Column.Outputs[Derived Column Output].Columns[start_date]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].Columns[end_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="end_date"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[end_date]"
+                      lineageId="Package\DTF_dim_book\Derived Column.Outputs[Derived Column Output].Columns[end_date]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].Columns[is_current]"
+                      cachedDataType="i1"
+                      cachedName="is_current"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[is_current]"
+                      lineageId="Package\DTF_dim_book\Derived Column.Outputs[Derived Column Output].Columns[is_current]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].Columns[book_id]"
+                      cachedDataType="i4"
+                      cachedName="book_id"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[book_id_bk]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[book_id]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].Columns[language_id]"
+                      cachedDataType="i4"
+                      cachedName="language_id"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[language_id_bk]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[language_id]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].Columns[publisher_id]"
+                      cachedDataType="i4"
+                      cachedName="publisher_id"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[publisher_id_bk]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[publisher_id]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[book_key]"
+                      dataType="i4"
+                      name="book_key" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[book_id_bk]"
+                      dataType="i4"
+                      name="book_id_bk" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[title]"
+                      codePage="1252"
+                      dataType="str"
+                      length="400"
+                      name="title" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[isbn13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="13"
+                      name="isbn13" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[num_pages]"
+                      dataType="i4"
+                      name="num_pages" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[publication_date]"
+                      dataType="wstr"
+                      length="10"
+                      name="publication_date" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[language_id_bk]"
+                      dataType="i4"
+                      name="language_id_bk" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[language_code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      name="language_code" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[language_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="language_name" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[publisher_id_bk]"
+                      dataType="i4"
+                      name="publisher_id_bk" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[publisher_name]"
+                      dataType="wstr"
+                      length="1000"
+                      name="publisher_name" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[ssc]"
+                      dataType="ui1"
+                      name="ssc" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[start_date]"
+                      dataType="wstr"
+                      length="27"
+                      name="start_date" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[end_date]"
+                      dataType="wstr"
+                      length="27"
+                      name="end_date" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input].ExternalColumns[is_current]"
+                      dataType="ui1"
+                      name="is_current" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DTF_dim_book\insert destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\insert destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\insert destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\insert destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\insert destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DTF_dim_book\insert destination 1"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="insert destination 1"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[dim_book]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DTF_dim_book\insert destination 1.Connections[OleDbConnection]"
+                  connectionManagerID="{128E3F09-F324-43E6-97DE-6C9187C0B9CE}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[BookStoreDWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].Columns[title]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="400"
+                      cachedName="title"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[title]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[title]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].Columns[isbn13]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="13"
+                      cachedName="isbn13"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[isbn13]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[isbn13]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].Columns[num_pages]"
+                      cachedDataType="i4"
+                      cachedName="num_pages"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[num_pages]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[num_pages]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].Columns[publication_date]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="publication_date"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[publication_date]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[publication_date]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].Columns[language_code]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="8"
+                      cachedName="language_code"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[language_code]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[language_code]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].Columns[language_name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="language_name"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[language_name]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[language_name]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].Columns[publisher_name]"
+                      cachedDataType="wstr"
+                      cachedLength="1000"
+                      cachedName="publisher_name"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[publisher_name]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[publisher_name]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].Columns[ssc]"
+                      cachedDataType="ui1"
+                      cachedName="ssc"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[ssc]"
+                      lineageId="Package\DTF_dim_book\ssc.Outputs[Derived Column Output].Columns[ssc]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].Columns[start_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="start_date"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[start_date]"
+                      lineageId="Package\DTF_dim_book\Derived Column 1.Outputs[Derived Column Output].Columns[start_date]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].Columns[end_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="end_date"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[end_date]"
+                      lineageId="Package\DTF_dim_book\Derived Column 1.Outputs[Derived Column Output].Columns[end_date]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].Columns[is_current]"
+                      cachedDataType="i1"
+                      cachedName="is_current"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[is_current]"
+                      lineageId="Package\DTF_dim_book\Derived Column 1.Outputs[Derived Column Output].Columns[is_current]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].Columns[book_id]"
+                      cachedDataType="i4"
+                      cachedName="book_id"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[book_id_bk]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[book_id]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].Columns[language_id]"
+                      cachedDataType="i4"
+                      cachedName="language_id"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[language_id_bk]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[language_id]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].Columns[publisher_id]"
+                      cachedDataType="i4"
+                      cachedName="publisher_id"
+                      externalMetadataColumnId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[publisher_id_bk]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[publisher_id]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[book_key]"
+                      dataType="i4"
+                      name="book_key" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[book_id_bk]"
+                      dataType="i4"
+                      name="book_id_bk" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[title]"
+                      codePage="1252"
+                      dataType="str"
+                      length="400"
+                      name="title" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[isbn13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="13"
+                      name="isbn13" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[num_pages]"
+                      dataType="i4"
+                      name="num_pages" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[publication_date]"
+                      dataType="wstr"
+                      length="10"
+                      name="publication_date" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[language_id_bk]"
+                      dataType="i4"
+                      name="language_id_bk" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[language_code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      name="language_code" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[language_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="language_name" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[publisher_id_bk]"
+                      dataType="i4"
+                      name="publisher_id_bk" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[publisher_name]"
+                      dataType="wstr"
+                      length="1000"
+                      name="publisher_name" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[ssc]"
+                      dataType="ui1"
+                      name="ssc" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[start_date]"
+                      dataType="wstr"
+                      length="27"
+                      name="start_date" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[end_date]"
+                      dataType="wstr"
+                      length="27"
+                      name="end_date" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input].ExternalColumns[is_current]"
+                      dataType="ui1"
+                      name="is_current" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DTF_dim_book\insert destination 1.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\insert destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\insert destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\insert destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DTF_dim_book\Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select publisher_name as lkp_publisher_name,
+title as lkp_title,book_key,book_id_bk
+from dim_book
+where is_current=1;</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select publisher_name as lkp_publisher_name,
+title as lkp_title,book_key,book_id_bk
+from dim_book
+where is_current=1;) [refTable]
+where [refTable].[book_id_bk] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="lkp_publisher_name" dataType="DT_WSTR" length="1000" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="lkp_title" dataType="DT_STR" length="400" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="book_key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="book_id_bk" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[book_id]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DTF_dim_book\Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="{128E3F09-F324-43E6-97DE-6C9187C0B9CE}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[BookStoreDWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DTF_dim_book\Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DTF_dim_book\Lookup.Inputs[Lookup Input].Columns[book_id]"
+                      cachedDataType="i4"
+                      cachedName="book_id"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[book_id]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">book_id_bk</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DTF_dim_book\Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DTF_dim_book\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\Lookup.Outputs[Lookup Match Output].Columns[lkp_publisher_name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="1000"
+                      lineageId="Package\DTF_dim_book\Lookup.Outputs[Lookup Match Output].Columns[lkp_publisher_name]"
+                      name="lkp_publisher_name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">lkp_publisher_name</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\Lookup.Outputs[Lookup Match Output].Columns[lkp_title]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Copy Column"
+                      length="400"
+                      lineageId="Package\DTF_dim_book\Lookup.Outputs[Lookup Match Output].Columns[lkp_title]"
+                      name="lkp_title"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">lkp_title</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\Lookup.Outputs[Lookup Match Output].Columns[book_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DTF_dim_book\Lookup.Outputs[Lookup Match Output].Columns[book_key]"
+                      name="book_key"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">book_key</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DTF_dim_book\Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DTF_dim_book\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DTF_dim_book\Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DTF_dim_book\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DTF_dim_book\Multicast"
+              componentClassID="Microsoft.Multicast"
+              contactInfo="Multicast;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Distributes every input row to every row in one or more outputs. For example, branch your data flow to make a copy of data so that some values can be masked before sharing with external partners."
+              name="Multicast">
+              <inputs>
+                <input
+                  refId="Package\DTF_dim_book\Multicast.Inputs[Multicast Input 1]"
+                  name="Multicast Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DTF_dim_book\Multicast.Outputs[Multicast Output 1]"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 1"
+                  synchronousInputId="Package\DTF_dim_book\Multicast.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DTF_dim_book\Multicast.Outputs[Multicast Output 2]"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 2"
+                  synchronousInputId="Package\DTF_dim_book\Multicast.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DTF_dim_book\Multicast.Outputs[Multicast Output 3]"
+                  dangling="true"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 3"
+                  synchronousInputId="Package\DTF_dim_book\Multicast.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DTF_dim_book\OLE DB Command"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="OLE DB Command"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">update dim_book
+set title=?
+where book_key=? and is_current=1;</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DTF_dim_book\OLE DB Command.Connections[OleDbConnection]"
+                  connectionManagerID="{128E3F09-F324-43E6-97DE-6C9187C0B9CE}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[BookStoreDWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DTF_dim_book\OLE DB Command.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DTF_dim_book\OLE DB Command.Inputs[OLE DB Command Input].Columns[title]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="400"
+                      cachedName="title"
+                      externalMetadataColumnId="Package\DTF_dim_book\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[title]" />
+                    <inputColumn
+                      refId="Package\DTF_dim_book\OLE DB Command.Inputs[OLE DB Command Input].Columns[book_key]"
+                      cachedDataType="i4"
+                      cachedName="book_key"
+                      externalMetadataColumnId="Package\DTF_dim_book\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\DTF_dim_book\Lookup.Outputs[Lookup Match Output].Columns[book_key]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      codePage="1252"
+                      dataType="str"
+                      length="400"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      dataType="i4"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">17</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DTF_dim_book\OLE DB Command.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\DTF_dim_book\OLE DB Command.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DTF_dim_book\OLE DB Command.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\DTF_dim_book\OLE DB Command.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DTF_dim_book\OLE DB Command 1"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="OLE DB Command 1"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE dbo.dim_book
+   SET end_date = GETDATE(), is_current= 0
+ WHERE book_key = ?;
+</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DTF_dim_book\OLE DB Command 1.Connections[OleDbConnection]"
+                  connectionManagerID="{128E3F09-F324-43E6-97DE-6C9187C0B9CE}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[BookStoreDWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DTF_dim_book\OLE DB Command 1.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DTF_dim_book\OLE DB Command 1.Inputs[OLE DB Command Input].Columns[book_key]"
+                      cachedDataType="i4"
+                      cachedName="book_key"
+                      externalMetadataColumnId="Package\DTF_dim_book\OLE DB Command 1.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\DTF_dim_book\Lookup.Outputs[Lookup Match Output].Columns[book_key]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\OLE DB Command 1.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="i4"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">17</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DTF_dim_book\OLE DB Command 1.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\DTF_dim_book\OLE DB Command 1.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DTF_dim_book\OLE DB Command 1.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\DTF_dim_book\OLE DB Command 1.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\OLE DB Command 1.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\OLE DB Command 1.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\OLE DB Command 1.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\OLE DB Command 1.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DTF_dim_book\source_book"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="source_book"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT b.book_id,b.title,b.isbn13,b.num_pages,b.publication_date,bl.language_id,bl.language_code,bl.language_name,
+       p.publisher_id,p.publisher_name
+FROM book b
+LEFT JOIN book_language bl ON b.language_id = bl.language_id
+LEFT JOIN publisher p ON b.publisher_id = p.publisher_id</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DTF_dim_book\source_book.Connections[OleDbConnection]"
+                  connectionManagerID="{64465865-F344-4EFC-81D2-BBAD2B754733}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[gravity_booksOLTP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[book_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].ExternalColumns[book_id]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[book_id]"
+                      name="book_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[title]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].ExternalColumns[title]"
+                      length="400"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[title]"
+                      name="title"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[isbn13]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].ExternalColumns[isbn13]"
+                      length="13"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[isbn13]"
+                      name="isbn13"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[num_pages]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].ExternalColumns[num_pages]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[num_pages]"
+                      name="num_pages"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[publication_date]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].ExternalColumns[publication_date]"
+                      length="10"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[publication_date]"
+                      name="publication_date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[language_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].ExternalColumns[language_id]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[language_id]"
+                      name="language_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[language_code]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].ExternalColumns[language_code]"
+                      length="8"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[language_code]"
+                      name="language_code"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[language_name]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].ExternalColumns[language_name]"
+                      length="50"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[language_name]"
+                      name="language_name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[publisher_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].ExternalColumns[publisher_id]"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[publisher_id]"
+                      name="publisher_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[publisher_name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].ExternalColumns[publisher_name]"
+                      length="1000"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].Columns[publisher_name]"
+                      name="publisher_name"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].ExternalColumns[book_id]"
+                      dataType="i4"
+                      name="book_id" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].ExternalColumns[title]"
+                      codePage="1252"
+                      dataType="str"
+                      length="400"
+                      name="title" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].ExternalColumns[isbn13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="13"
+                      name="isbn13" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].ExternalColumns[num_pages]"
+                      dataType="i4"
+                      name="num_pages" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].ExternalColumns[publication_date]"
+                      dataType="wstr"
+                      length="10"
+                      name="publication_date" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].ExternalColumns[language_id]"
+                      dataType="i4"
+                      name="language_id" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].ExternalColumns[language_code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      name="language_code" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].ExternalColumns[language_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="language_name" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].ExternalColumns[publisher_id]"
+                      dataType="i4"
+                      name="publisher_id" />
+                    <externalMetadataColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output].ExternalColumns[publisher_name]"
+                      dataType="wstr"
+                      length="1000"
+                      name="publisher_name" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[book_id]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[book_id]"
+                      name="book_id" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[title]"
+                      codePage="1252"
+                      dataType="str"
+                      length="400"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[title]"
+                      name="title" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[isbn13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="13"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[isbn13]"
+                      name="isbn13" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[num_pages]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[num_pages]"
+                      name="num_pages" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[publication_date]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[publication_date]"
+                      name="publication_date" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[language_id]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[language_id]"
+                      name="language_id" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[language_code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[language_code]"
+                      name="language_code" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[language_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[language_name]"
+                      name="language_name" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[publisher_id]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[publisher_id]"
+                      name="publisher_id" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[publisher_name]"
+                      dataType="wstr"
+                      length="1000"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[publisher_name]"
+                      name="publisher_name" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DTF_dim_book\ssc"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="ssc"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DTF_dim_book\ssc.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DTF_dim_book\ssc.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DTF_dim_book\ssc.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\ssc.Outputs[Derived Column Output].Columns[ssc]"
+                      dataType="ui1"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DTF_dim_book\ssc.Outputs[Derived Column Output].Columns[ssc]"
+                      name="ssc"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_UI1)1</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_UI1)1</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DTF_dim_book\ssc.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DTF_dim_book\ssc.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DTF_dim_book\ssc.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\ssc.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DTF_dim_book\ssc.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DTF_dim_book\ssc.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DTF_dim_book.Paths[Derived Column Output]"
+              endId="Package\DTF_dim_book\Lookup.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\DTF_dim_book\ssc.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DTF_dim_book.Paths[Derived Column Output1]"
+              endId="Package\DTF_dim_book\insert destination.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\DTF_dim_book\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DTF_dim_book.Paths[Derived Column Output2]"
+              endId="Package\DTF_dim_book\insert destination 1.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\DTF_dim_book\Derived Column 1.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DTF_dim_book.Paths[Lookup Match Output]"
+              endId="Package\DTF_dim_book\Conditional Split.Inputs[Conditional Split Input]"
+              name="Lookup Match Output"
+              startId="Package\DTF_dim_book\Lookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DTF_dim_book.Paths[Lookup No Match Output]"
+              endId="Package\DTF_dim_book\Derived Column.Inputs[Derived Column Input]"
+              name="Lookup No Match Output"
+              startId="Package\DTF_dim_book\Lookup.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\DTF_dim_book.Paths[Multicast Output 1]"
+              endId="Package\DTF_dim_book\OLE DB Command 1.Inputs[OLE DB Command Input]"
+              name="Multicast Output 1"
+              startId="Package\DTF_dim_book\Multicast.Outputs[Multicast Output 1]" />
+            <path
+              refId="Package\DTF_dim_book.Paths[Multicast Output 2]"
+              endId="Package\DTF_dim_book\Derived Column 1.Inputs[Derived Column Input]"
+              name="Multicast Output 2"
+              startId="Package\DTF_dim_book\Multicast.Outputs[Multicast Output 2]" />
+            <path
+              refId="Package\DTF_dim_book.Paths[OLE DB Source Output]"
+              endId="Package\DTF_dim_book\ssc.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\DTF_dim_book\source_book.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DTF_dim_book.Paths[SCD1]"
+              endId="Package\DTF_dim_book\OLE DB Command.Inputs[OLE DB Command Input]"
+              name="SCD1"
+              startId="Package\DTF_dim_book\Conditional Split.Outputs[SCD1]" />
+            <path
+              refId="Package\DTF_dim_book.Paths[SCD2]"
+              endId="Package\DTF_dim_book\Multicast.Inputs[Multicast Input 1]"
+              name="SCD2"
+              startId="Package\DTF_dim_book\Conditional Split.Outputs[SCD2]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\DTF_dim_book"
+          TopLeft="278.833318399059,183.166665431195" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DTF_dim_book">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="93.6,41.6"
+          Id="Package\DTF_dim_book\ssc"
+          TopLeft="344.666649774546,77.9666663713588" />
+        <NodeLayout
+          Size="153.6,41.6"
+          Id="Package\DTF_dim_book\Conditional Split"
+          TopLeft="422.999985384445,227.433332833118" />
+        <NodeLayout
+          Size="165.6,41.6"
+          Id="Package\DTF_dim_book\insert destination 1"
+          TopLeft="701.333301871188,459.966666588319" />
+        <NodeLayout
+          Size="119.2,41.6"
+          Id="Package\DTF_dim_book\Multicast"
+          TopLeft="607.166645266944,309.099999349118" />
+        <NodeLayout
+          Size="167.2,41.6"
+          Id="Package\DTF_dim_book\OLE DB Command"
+          TopLeft="367.99999002864,302.499999186397" />
+        <NodeLayout
+          Size="176,41.6"
+          Id="Package\DTF_dim_book\OLE DB Command 1"
+          TopLeft="497.999986204009,380.699999059836" />
+        <NodeLayout
+          Size="112.8,41.6"
+          Id="Package\DTF_dim_book\Lookup"
+          TopLeft="339.666651686861,149.566666082077" />
+        <NodeLayout
+          Size="137.6,41.6"
+          Id="Package\DTF_dim_book\source_book"
+          TopLeft="337.1666485452,1.1666666968001" />
+        <NodeLayout
+          Size="152.8,41.6"
+          Id="Package\DTF_dim_book\Derived Column"
+          TopLeft="203.833327414261,253.233332236475" />
+        <NodeLayout
+          Size="161.6,41.6"
+          Id="Package\DTF_dim_book\Derived Column 1"
+          TopLeft="698.833302007783,403.433332941598" />
+        <NodeLayout
+          Size="156.8,41.6"
+          Id="Package\DTF_dim_book\insert destination"
+          TopLeft="187.166663297349,345.633331802554" />
+        <EdgeLayout
+          Id="Package\DTF_dim_book.Paths[SCD2]"
+          TopLeft="524.066652051112,269.033332833118">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="142.699993215832,40.0666665159998"
+              Start="0,0"
+              End="142.699993215832,32.5666665159998">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.2745016570143" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.2745016570143"
+                    Point2="0,16.2745016570143"
+                    Point3="4,16.2745016570143" />
+                  <mssgle:LineSegment
+                    End="138.699993215832,16.2745016570143" />
+                  <mssgle:CubicBezierSegment
+                    Point1="138.699993215832,16.2745016570143"
+                    Point2="142.699993215832,16.2745016570143"
+                    Point3="142.699993215832,20.2745016570143" />
+                  <mssgle:LineSegment
+                    End="142.699993215832,32.5666665159998" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="58.8482192641661,21.2745016570143,25.0035546875,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DTF_dim_book.Paths[SCD1]"
+          TopLeft="475.533318717778,269.033332833118">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-23.9333286891385,33.466666353279"
+              Start="0,0"
+              End="-23.9333286891385,25.966666353279">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,9.59367684865146" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,9.59367684865146"
+                    Point2="0,13.5936768486515"
+                    Point3="-4,13.5936768486515" />
+                  <mssgle:LineSegment
+                    End="-19.9333286891385,13.5936768486515" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-19.9333286891385,13.5936768486515"
+                    Point2="-23.9333286891385,13.5936768486515"
+                    Point3="-23.9333286891385,17.5936768486515" />
+                  <mssgle:LineSegment
+                    End="-23.9333286891385,25.966666353279" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-24.2828948133193,18.5936768486515,24.6324609375,9.5341796875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DTF_dim_book.Paths[OLE DB Source Output]"
+          TopLeft="405.9666485452,42.7666666968001">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-14.4999987706542,35.1999996745587"
+              Start="0,0"
+              End="-14.4999987706542,27.6999996745587">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,13.5999998372793" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13.5999998372793"
+                    Point2="0,17.5999998372793"
+                    Point3="-4,17.5999998372793" />
+                  <mssgle:LineSegment
+                    End="-10.4999987706542,17.5999998372793" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-10.4999987706542,17.5999998372793"
+                    Point2="-14.4999987706542,17.5999998372793"
+                    Point3="-14.4999987706542,21.5999998372793" />
+                  <mssgle:LineSegment
+                    End="-14.4999987706542,27.6999996745587" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DTF_dim_book.Paths[Multicast Output 2]"
+          TopLeft="685.299978600277,350.699999349118">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="94.3333234075056,52.7333335924804"
+              Start="0,0"
+              End="94.3333234075056,45.2333335924804">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.5124062867338" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.5124062867338"
+                    Point2="0,21.5124062867338"
+                    Point3="4,21.5124062867338" />
+                  <mssgle:LineSegment
+                    End="90.3333234075056,21.5124062867338" />
+                  <mssgle:CubicBezierSegment
+                    Point1="90.3333234075056,21.5124062867338"
+                    Point2="94.3333234075056,21.5124062867338"
+                    Point3="94.3333234075056,25.5124062867338" />
+                  <mssgle:LineSegment
+                    End="94.3333234075056,45.2333335924804" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DTF_dim_book.Paths[Multicast Output 1]"
+          TopLeft="648.233311933611,350.699999349118">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-62.2333257296016,29.9999997107184"
+              Start="0,0"
+              End="-62.2333257296016,22.4999997107184">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,8.23841047801492" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,8.23841047801492"
+                    Point2="0,12.2384104780149"
+                    Point3="-4,12.2384104780149" />
+                  <mssgle:LineSegment
+                    End="-58.2333257296016,12.2384104780149" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-58.2333257296016,12.2384104780149"
+                    Point2="-62.2333257296016,12.2384104780149"
+                    Point3="-62.2333257296016,16.2384104780149" />
+                  <mssgle:LineSegment
+                    End="-62.2333257296016,22.4999997107184" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DTF_dim_book.Paths[Lookup No Match Output]"
+          TopLeft="396.066651686861,191.166666082077">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-115.8333242726,62.0666661543978"
+              Start="0,0"
+              End="-115.8333242726,54.5666661543978">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.0333330771989" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.0333330771989"
+                    Point2="0,31.0333330771989"
+                    Point3="-4,31.0333330771989" />
+                  <mssgle:LineSegment
+                    End="-111.8333242726,31.0333330771989" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-111.8333242726,31.0333330771989"
+                    Point2="-115.8333242726,31.0333330771989"
+                    Point3="-115.8333242726,35.0333330771989" />
+                  <mssgle:LineSegment
+                    End="-115.8333242726,54.5666661543978" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-113.72304885505,36.0333330771989,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DTF_dim_book.Paths[Lookup Match Output]"
+          TopLeft="413.533318353528,191.166666082077">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="86.2666670309173,36.2666667510404"
+              Start="0,0"
+              End="86.2666670309173,28.7666667510404">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,10.8110023654599" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.8110023654599"
+                    Point2="0,14.8110023654599"
+                    Point3="4,14.8110023654599" />
+                  <mssgle:LineSegment
+                    End="82.2666670309173,14.8110023654599" />
+                  <mssgle:CubicBezierSegment
+                    Point1="82.2666670309173,14.8110023654599"
+                    Point2="86.2666670309173,14.8110023654599"
+                    Point3="86.2666670309173,18.8110023654599" />
+                  <mssgle:LineSegment
+                    End="86.2666670309173,28.7666667510404" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-5.05805320329135,19.8110023654599,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DTF_dim_book.Paths[Derived Column Output2]"
+          TopLeft="698.833302007783,424.233332941598">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="2.49999986340515,56.5333336467212"
+              Start="0,0"
+              End="-5.00000013659485,56.5333336467212">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-18.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-18.5,0"
+                    Point2="-22.5,0"
+                    Point3="-22.5,4" />
+                  <mssgle:LineSegment
+                    End="-22.5,52.5333336467212" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-22.5,52.5333336467212"
+                    Point2="-22.5,56.5333336467212"
+                    Point3="-18.5,56.5333336467212" />
+                  <mssgle:LineSegment
+                    End="-5.00000013659485,56.5333336467212" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DTF_dim_book.Paths[Derived Column Output1]"
+          TopLeft="280.233327414261,294.833332236475">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-14.6666641169125,50.7999995660783"
+              Start="0,0"
+              End="-14.6666641169125,43.2999995660783">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.3999997830392" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.3999997830392"
+                    Point2="0,25.3999997830392"
+                    Point3="-4,25.3999997830392" />
+                  <mssgle:LineSegment
+                    End="-10.6666641169125,25.3999997830392" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-10.6666641169125,25.3999997830392"
+                    Point2="-14.6666641169125,25.3999997830392"
+                    Point3="-14.6666641169125,29.3999997830392" />
+                  <mssgle:LineSegment
+                    End="-14.6666641169125,43.2999995660783" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DTF_dim_book.Paths[Derived Column Output]"
+          TopLeft="393.766650730703,119.566666371359">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.9999997107188"
+              Start="0,0"
+              End="0,22.4999997107188">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.4999997107188" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DTF_dim_book\insert destination 1">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DTF_dim_book\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DTF_dim_book\source_book">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DTF_dim_book\insert destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

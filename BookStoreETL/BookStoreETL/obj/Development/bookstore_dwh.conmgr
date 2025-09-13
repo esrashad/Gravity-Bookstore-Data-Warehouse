@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="bookstore_dwh"
+  DTS:DTSID="{BC63F8CF-A879-43E4-B470-16968C216AFE}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=DESKTOP-EDN2DPO;Initial Catalog=BookStoreDWH;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-BookStoreETL-{BC63F8CF-A879-43E4-B470-16968C216AFE}DESKTOP-EDN2DPO.BookStoreDWH;Auto Translate=False;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

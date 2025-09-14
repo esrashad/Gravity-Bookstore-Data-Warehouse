@@ -176,7 +176,7 @@ The DWH powers **Power BI dashboards** with insights into:
 
 ---
   ## 9. Author  
-This project was developed by [Esraa Rashad] as part of a Data Engineering learning project.  
+This project was developed by Esraa Rashad as part of a Data Engineering learning project.  
 
 
 

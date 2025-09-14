@@ -172,7 +172,12 @@ The DWH powers **Power BI dashboards** with insights into:
 - `/SQL-Server/` → Data Warehouse DDL scripts (dimensions, facts, bridges)  
 - `/BookStoreETL/` → SSIS packages (one per dimension, fact, and bridge)  
 - `gravity_bookstore_dashboard.pbix` → Power BI dashboard file  
-- `/README.md` → Project documentation  
+- `/README.md` → Project documentation
+
+---
+  ## 9. Author  
+This project was developed by [Esraa Rashad] as part of a Data Engineering learning project.  
+
 
 
 
